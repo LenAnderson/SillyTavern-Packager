@@ -35,7 +35,7 @@ export class CharContentItem extends ContentItem {
                         sprites.title = 'Include sprites / emotes';
                         const cb = document.createElement('input'); {
                             cb.type = 'checkbox';
-                            cb.checked = true;
+                            cb.checked = this.includeSprites;
                             cb.addEventListener('click', ()=>{
                                 this.includeSprites = cb.checked;
                             });

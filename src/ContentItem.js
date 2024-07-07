@@ -9,6 +9,7 @@ export class ContentItem {
     /**@type {string} */ key;
     /**@type {boolean} */ canBeActive = false;
     /**@type {boolean} */ isRadio = false;
+    /**@type {boolean} */ isStartingActive = null;
     get isActive() {
         return this.isActiveDom?.checked ?? false;
     }
@@ -58,7 +59,11 @@ export class ContentItem {
                                 this.isActiveDom = cb;
                                 cb.type = this.isRadio ? 'radio' : 'checkbox';
                                 if (this.isRadio) cb.name = `stpkg--${this.key}-isActive`;
-                                cb.checked = !this.isRadio;
+                                if (this.isStartingActive === null) {
+                                    cb.checked = !this.isRadio;
+                                } else {
+                                    cb.checked = this.isStartingActive;
+                                }
                                 let wasActive;
                                 active.addEventListener('pointerdown', ()=>{
                                     wasActive = cb.checked;

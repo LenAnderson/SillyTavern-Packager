@@ -1,5 +1,5 @@
 {
-    "display_name": "Package",
+    "display_name": "Packager",
     "loading_order": 100,
     "requires": [],
     "optional": [],
@@ -7,5 +7,5 @@
     "css": "style.css",
     "author": "LenAnderson",
     "version": "1.0.0",
-    "homePage": "https://github.com/LenAnderson/SillyTavern-Package"
+    "homePage": "https://github.com/LenAnderson/SillyTavern-Packager"
 }

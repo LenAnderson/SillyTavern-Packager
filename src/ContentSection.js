@@ -111,6 +111,9 @@ export class ContentSection {
     }
 
 
+    /**
+     * @param {ContentItem} content
+     */
     addContent(content) {
         if (!this.contentList.find(it=>it.id == content.id)) {
             this.contentList.push(content);
