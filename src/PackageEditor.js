@@ -130,7 +130,7 @@ export class PackageEditor {
                             body.append(section);
                         }
                     }
-                    { // characters, groups
+                    { // content
                         const secGroup = document.createElement('div'); {
                             let charSection;
                             secGroup.classList.add('stpkg--sectionGroup');

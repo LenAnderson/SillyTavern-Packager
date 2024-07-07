@@ -10,6 +10,7 @@ import { FileExplorer } from '../SillyTavern-FileExplorer/src/FileExplorer.js';
 import { FilesApi } from './lib/FilesApi.js';
 import { Package } from './src/Package.js';
 import { PackageEditor } from './src/PackageEditor.js';
+import { PackageImporter } from './src/PackageImporter.js';
 
 const packageList = [];
 const updatePackageList = async()=>{
@@ -141,6 +142,7 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-impo
         fe.extensionList = ['stpkg'];
         await fe.show();
         if (fe.selection) {
+            toastr.info('Extracting package contents...', 'ST Packager');
             const response = await fetch('api/plugins/files/get', {
                 method: 'POST',
                 headers: getRequestHeaders(),
@@ -149,12 +151,25 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-impo
                 }),
             });
             const blob = await response.blob();
-            const pkg = new Package(blob);
+            const pkg = new PackageImporter(blob);
             await pkg.load();
             console.log(pkg);
+            const dlg = new Popup(await pkg.render(), POPUP_TYPE.CONFIRM, null, {
+                okButton:'Import Package',
+                cancelButton:'Cancel',
+                wider: true,
+                large: true,
+                allowVerticalScrolling: true,
+            });
+            const prom = dlg.show();
+            await prom;
+            if (dlg.result == POPUP_RESULT.AFFIRMATIVE) {
+                toastr.warning('Package import not implemented', 'ST Packager');
+            }
             //TODO show package load / import dialog
             //TODO list content, pick and choose what to import
             //TODO ask how to handle conflicts: overwrite / skip (/ rename?)
+            //TODO save adjusted (->pick&choose) manifest
         }
         await updatePackageList();
         return '';

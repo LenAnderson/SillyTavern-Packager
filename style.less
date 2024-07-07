@@ -1,4 +1,4 @@
-.popup:has(.stpkg--export) {
+.popup:has(.stpkg--export, .stpkg--import--XXX) {
 	aspect-ratio: unset;
 	width: unset;
 }
@@ -136,6 +136,110 @@
 
 		&.stpkg--asset {
 			// filter: blur(2px) grayscale(1);
+		}
+	}
+}
+
+
+
+
+.stpkg--import {
+	--stpkg--ava-height: 144px;
+	--stpkg--ava-width: 96px;
+	--stpkg--bg-height: 90px;
+	--stpkg--bg-width: 160px;
+	.stpkg--section {
+		border: 1px solid var(--SmartThemeBorderColor);
+		padding: 0 0.5em 0.5em 0.5em;
+		position: relative;
+		margin-bottom: 1em;
+		h4 {
+			text-align: left;
+		}
+		.stpkg--grid {
+			display: flex;
+			gap: 1em;
+			justify-content: flex-start;
+			flex-wrap: wrap;
+			.stpkg--item {
+				background: var(--black30a);
+				padding: 0.25em;
+				border-radius: 5px;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				gap: 0.25em;
+				width: calc(0.5em + var(--stpkg--bg-width));
+				opacity: 0.5;
+				transition: 200ms;
+				&.stpkg--isIncluded {
+					opacity: 1;
+				}
+				.stpkg--name {
+					flex: 1 1 auto;
+					word-wrap: break-word;
+				}
+				.stpkg--actions {
+					display: flex;
+					flex-direction: column;
+					align-self: stretch;
+					font-size: smaller;
+					transition: 200ms;
+					margin-top: 0.5em;
+					.stpkg--warning {
+						font-size: 2em;
+						margin: 0.25em 0;
+						color: white;
+						background-color: #BD362F;
+						padding: 0.25em;
+					}
+					.stpkg--toggle {
+						display: flex;
+						.stpkg--pos, .stpkg--neg {
+							flex: 1 1 1px;
+							padding: 0.5em;
+							cursor: pointer;
+							color: white;
+							filter: saturate(0.5);
+							transition: 200ms;
+							&:hover {
+								filter: saturate(0.75);
+							}
+							&.stpkg--isSelected {
+								filter: saturate(1);
+								font-weight: bold;
+							}
+						}
+						.stpkg--pos {
+							background-color: #51A351;
+							&:hover {
+								filter: saturate(2);
+							}
+						}
+						.stpkg--neg {
+							background-color: #BD362F;
+						}
+					}
+				}
+			}
+		}
+		&.stpkg--info {
+			border: none;
+			padding: 0;
+			.stpkg--version:before { content: " v"; }
+			.stpkg--author:before { content: "by "; }
+		}
+		&.stpkg--characters {
+			.stpkg--item {
+				// width: calc(0.5em + var(--stpkg--ava-width));
+			}
+			.stpkg--avatar {
+				height: var(--stpkg--ava-height);
+				width: var(--stpkg--ava-width);
+			}
+			.stpkg--name {
+				width: var(--stpkg--ava-width);
+			}
 		}
 	}
 }
