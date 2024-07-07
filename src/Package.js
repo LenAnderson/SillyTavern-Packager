@@ -140,17 +140,21 @@ export class Package {
         this.author = manifest.author;
         this.version = manifest.version;
         for (const item of manifest.characters ?? []) {
+            //TODO get content from zip
             const ci = new CharContentItem(characters.find(it=>it.avatar == item.avatar));
             ci.includeSprites = item.includeSprites;
             this.characters.push(ci);
         }
         for (const item of manifest.groups ?? []) {
+            //TODO get content from zip
             this.groups.push(new GroupContentItem(groups.find(it=>it.name == item.name)));
         }
         for (const item of manifest.backgrounds ?? []) {
+            //TODO get content from zip
             this.backgrounds.push(new BgContentItem(item.name));
         }
         for (const item of manifest.regex ?? []) {
+            //TODO get content from zip
             const regexScript = getRegexScripts().find(it=>it.scriptName == item.name);
             new ContentItem(regexScript, 'scriptName', 'scriptName', 'regex');
         }
@@ -161,6 +165,7 @@ export class Package {
         for (const key of generic) {
             if (!manifest[key] || !Array.isArray(manifest[key])) continue;
             for (const item of manifest[key]) {
+                //TODO get content from zip
                 this[key].push(new ContentItem(item, 'name', 'name', key));
             }
         }
@@ -171,6 +176,7 @@ export class Package {
         for (const key of genericCheckbox) {
             if (!manifest[key] || !Array.isArray(manifest[key])) continue;
             for (const item of manifest[key]) {
+                //TODO get content from zip
                 const ci = new ContentItem(item, 'name', 'name', key, true);
                 ci.isStartingActive = item.isActive;
                 this[key].push(ci);
@@ -189,6 +195,7 @@ export class Package {
         for (const key of genericRadio) {
             if (!manifest[key] || !Array.isArray(manifest[key])) continue;
             for (const item of manifest[key]) {
+                //TODO get content from zip
                 const ci = new ContentItem(item, 'name', 'name', key, true, true);
                 ci.isStartingActive = item.isActive;
                 this[key].push(ci);

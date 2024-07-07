@@ -8,9 +8,6 @@ import { SlashCommandParser } from '../../../slash-commands/SlashCommandParser.j
 import { quickReplyApi } from '../../quick-reply/index.js';
 import { FileExplorer } from '../SillyTavern-FileExplorer/src/FileExplorer.js';
 import { FilesApi } from './lib/FilesApi.js';
-import { BgContentItem } from './src/BgContentItem.js';
-import { CharContentItem } from './src/CharContentItem.js';
-import { ContentItem } from './src/ContentItem.js';
 import { Package } from './src/Package.js';
 import { PackageEditor } from './src/PackageEditor.js';
 
@@ -29,7 +26,7 @@ const updatePackageList = async()=>{
 };
 await updatePackageList();
 
-SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-export',
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-create',
     callback: async()=>{
         const editor = new PackageEditor();
         const SAVE_ONLY = 100;
@@ -103,10 +100,10 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-edit
             enumProvider: ()=>packageList.map(it=>new SlashCommandEnumValue(it)),
         }),
     ],
-    helpString: 'Edit previously exported package (based on local package manifest).',
+    helpString: 'Edit previously created or imported package (based on local package manifest).',
 }));
 
-SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-load',
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-import',
     callback: async(args, value)=>{
         {
             const response = await fetch('api/plugins/files/exists', {
@@ -139,6 +136,7 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-load
         fe.isFixedPath = true;
         fe.isFixedRoot = true;
         fe.isPicker = true;
+        fe.promptUpload = true;
         fe.isSingleSelect = true;
         fe.extensionList = ['stpkg'];
         await fe.show();
@@ -161,7 +159,7 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-load
         await updatePackageList();
         return '';
     },
-    helpString: 'Load / import a package file.',
+    helpString: 'Import a package file.',
 }));
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'package-activate',
